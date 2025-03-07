@@ -24,6 +24,9 @@ class User extends Authenticatable
         'username',
         'is_active',
         'role',
+        'user_simak',
+        'details',
+        'foto'
     ];
 
     /**
@@ -47,5 +50,22 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function scoperole($query, array $value)
+    {
+        if ($value) {
+            $query->whereIn('role', $value);
+        }
+    }
+
+    public function spesialisasi()
+    {
+        return $this->belongsToMany(Service::class, 'app_counselor_has_services', 'user_id', 'service_id')->withTimestamps();
+    }
+
+    public function jadwal()
+    {
+        return $this->hasMany(CounselorHasSchedule::class, 'user_id', 'id');
     }
 }

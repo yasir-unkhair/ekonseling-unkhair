@@ -130,3 +130,21 @@ if (!function_exists('data_params')) {
     return array_key_exists($key, $arr) ? $arr[$key] : NULL;
   }
 }
+
+if (!function_exists('filter')) {
+  function filter($data)
+  {
+    $data = trim($data);
+    return $data ? $data : null;
+  }
+}
+
+if (!function_exists('foto_profil')) {
+  function foto_profil($foto = NULL)
+  {
+    if (!$foto) {
+      return asset('images/avatar5.png');
+    }
+    return asset($foto);
+  }
+}

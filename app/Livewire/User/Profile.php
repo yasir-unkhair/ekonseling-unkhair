@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Livewire\Konselor;
+namespace App\Livewire\User;
 
-use App\Models\Service;
 use App\Models\User;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Validation\Rules\File;
@@ -11,7 +10,7 @@ use Livewire\WithFileUploads;
 
 use Intervention\Image\Laravel\Facades\Image;
 
-class IdentitasDiri extends Component
+class Profile extends Component
 {
     use WithFileUploads;
 
@@ -23,15 +22,13 @@ class IdentitasDiri extends Component
     public $email;
     public $hp;
     public $foto;
-    public $url_foto;
+    public $institusi;
 
-    public $spesialisasi = [];
-    public $spesialisasi_selected = [];
-    public $pengalaman;
+    public $url_foto;
 
     public function mount()
     {
-        $user = User::with('spesialisasi')->where('id', auth()->user()->id)->first();
+        $user = User::where('id', auth()->user()->id)->first();
 
         $details = json_decode($user->details, true);
         if ($details) {
@@ -40,25 +37,17 @@ class IdentitasDiri extends Component
             $this->tanggal_lahir = $details['tanggal_lahir'] ?? '';
             $this->alamat = $details['alamat'] ?? '';
             $this->hp = $details['hp'] ?? '';
-            $this->pengalaman = $details['pengalaman'] ?? '';
+            $this->institusi = $details['institusi'] ?? '';
         }
 
         $this->name = $user->name;
         $this->email = $user->email;
         $this->url_foto = $user->foto;
-
-        foreach ($user->spesialisasi as $row) {
-            $this->spesialisasi[] = $row->id;
-            $this->spesialisasi_selected[] = $row->id;
-        }
     }
 
     public function render()
     {
-        $data = [
-            'services' => Service::orderBy('name', 'asc')->get()
-        ];
-        return view('livewire.konselor.identitas-diri', $data);
+        return view('livewire.user.profile');
     }
 
     public function save()
@@ -70,9 +59,8 @@ class IdentitasDiri extends Component
             'tanggal_lahir' => 'required',
             'alamat' => 'required',
             'hp' => 'required',
-            'pengalaman' => 'required|numeric|min:0|max:100',
             'email' => 'required|email|unique:users,email,' . auth()->user()->id,
-            'spesialisasi' => 'required|array|min:1'
+            'institusi' => 'required'
         ];
 
         $foto = $this->foto;
@@ -82,13 +70,15 @@ class IdentitasDiri extends Component
 
         $this->validate($rules);
 
+
+        //dd($this);
+
         $path_foto = 'images/foto/';
 
         try {
-            //code...
 
             if ($foto) {
-                $nama_file = 'konselor-' . time() . '.' . $foto->getClientOriginalExtension();
+                $nama_file = 'user-' . time() . '.' . $foto->getClientOriginalExtension();
                 $lokasi_file = public_path($path_foto);
                 if (!FacadesFile::isDirectory($lokasi_file)) {
                     FacadesFile::makeDirectory($lokasi_file, 0755, true, true);
@@ -109,10 +99,8 @@ class IdentitasDiri extends Component
                 $this->url_foto = $path_foto . $nama_file;
             }
 
+            //code...
             $user = User::where('id', auth()->user()->id)->first();
-
-            $user->spesialisasi()->sync([]);
-
             $user->update([
                 'name' => $this->name,
                 'email' => $this->email,
@@ -122,14 +110,13 @@ class IdentitasDiri extends Component
                     'tanggal_lahir' => $this->tanggal_lahir,
                     'alamat' => $this->alamat,
                     'hp' => $this->hp,
-                    'pengalaman' => $this->pengalaman,
+                    'institusi' => $this->institusi
                 ]),
                 'foto' => $this->url_foto
             ]);
 
-            $user->spesialisasi()->sync($this->spesialisasi);
-            alert()->success('Success', 'Identitas diri berhasil diupdate.');
-            return $this->redirect(route('counselor.kelengkapan.identitas'));
+            alert()->success('Success', 'Profil anda berhasil diupdate.');
+            return $this->redirect(route('user.profile'));
         } catch (\Throwable $th) {
             dd($th->getMessage());
             exit();

@@ -12,14 +12,14 @@ class DashboardController extends Controller
         return view('user.dashboard', ['title' => 'Dashboard']);
     }
 
+    public function profile()
+    {
+        return view('user.profile', ['title' => 'Profil Saya']);
+    }
+
     public function logout()
     {
         auth()->logout();
         return redirect(route('frontend.beranda'));
-    }
-
-    public function pilih_konselor()
-    {
-        return view('user.pilih-konselor', ['title' => 'Pilih Konselor']);
     }
 }

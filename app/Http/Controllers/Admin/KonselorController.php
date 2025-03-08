@@ -28,7 +28,7 @@ class KonselorController extends Controller
             return DataTables::of($result)
                 ->addIndexColumn()
                 ->editColumn('nama_konselor', function ($row) {
-                    $foto = asset('images/avatar5.png');
+                    $foto = foto_profil($row->foto);
                     $spesialisasi = '';
                     foreach ($row->spesialisasi as $sp) {
                         $spesialisasi .= '<span class="badge badge-warning mr-1">' . $sp->name . '</span>';

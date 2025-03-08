@@ -53,8 +53,11 @@ Route::middleware('isLogin')->group(function () {
         Route::controller(App\Http\Controllers\User\DashboardController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('user.dashboard');
             Route::get('/profile', 'profile')->name('user.profile');
-            Route::get('/pilih-konselor', 'pilih_konselor')->name('user.pilih_konselor');
             Route::get('/logout', 'logout')->name('user.logout');
+        });
+
+        Route::controller(App\Http\Controllers\User\PilihKoselorController::class)->group(function () {
+            Route::get('/pilih-konselor', 'index')->name('user.pilih_konselor');
         });
     });
 });

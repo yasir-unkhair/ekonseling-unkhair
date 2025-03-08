@@ -70,7 +70,7 @@
 
                 <div class="">
                     <div class="main-menu-header">
-                        <img class="img-radius" src="{{ asset('images') }}/avatar5.png" alt="User-Profile-Image">
+                        <img class="img-radius" src="{{ foto_profil(Auth::user()->foto) }}" alt="User-Profile-Image">
                         <div class="user-details">
                             <span>{{ Auth::user()->name }}</span> <br>
                             <span class="badge badge-light-warning">{{ ucfirst(Auth::user()->role) }}</span>
@@ -194,7 +194,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-notification">
                             <div class="pro-head">
-                                <img src="{{ asset('images') }}/avatar5.png" class="img-radius"
+                                <img src="{{ foto_profil(Auth::user()->foto) }}" class="img-radius"
                                     alt="User-Profile-Image">
                                 <span>{{ Auth::user()->name }}</span>
                                 @php

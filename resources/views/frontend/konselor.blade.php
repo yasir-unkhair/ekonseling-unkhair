@@ -25,7 +25,7 @@
                     @endphp
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="team-member d-flex align-items-start">
-                            <div class="pic"><img src="{{ asset('images') }}/avatar5.png" class="img-fluid"
+                            <div class="pic"><img src="{{ foto_profil($row->foto) }}" class="img-fluid"
                                     alt=""></div>
                             <div class="member-info">
                                 <h4>{{ $row->name }}</h4>

@@ -52,10 +52,21 @@ class User extends Authenticatable
         ];
     }
 
-    public function scoperole($query, array $value)
+    public function scoperole($query, $value)
     {
         if ($value) {
-            $query->whereIn('role', $value);
+            if (!is_array($value)) {
+                $query->where('role', $value);
+            } else {
+                $query->whereIn('role', $value);
+            }
+        }
+    }
+
+    public function scopeactive($query, $value)
+    {
+        if ($value) {
+            $query->where('is_active', $value);
         }
     }
 

@@ -11,19 +11,19 @@
                         <table class="table table-sm">
                             <tr>
                                 <th class="w-25">Nama</th>
-                                <td class="w-75">:&nbsp;{{ auth()->user()->name }}</td>
+                                <td class="w-75">:&nbsp;{{ $user->name }}</td>
                             </tr>
                             <tr>
                                 <th>Email</th>
-                                <td>:&nbsp;{{ auth()->user()->email }}</td>
+                                <td>:&nbsp;{{ $user->email }}</td>
                             </tr>
                             <tr>
                                 <th>No. Telepon</th>
-                                <td>:&nbsp;{{ '' }}</td>
+                                <td>:&nbsp;{{ baca_json($user->details, 'hp') }}</td>
                             </tr>
                             <tr>
                                 <th>Alamat</th>
-                                <td>:&nbsp;{{ '' }}</td>
+                                <td>:&nbsp;{{ baca_json($user->details, 'alamat') }}</td>
                             </tr>
                         </table>
                     </div>

@@ -21,10 +21,10 @@ class PilihKoselorController extends Controller
                     ->orderBy('created_at', 'ASC');
             }
         ])->role(['counselor'])->where('is_active', 1)->get();
-
+        // dd($konselor[0], $konselor[0]->spesialisasi, $konselor[0]->jadwal);
         $data = [
             'konselor' => $konselor,
-            'title' => 'Pilih Konselor'
+            'title' => 'Daftar Konselor'
         ];
         return view('user.pilih-konselor', $data);
     }

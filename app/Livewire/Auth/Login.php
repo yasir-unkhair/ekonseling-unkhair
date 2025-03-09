@@ -37,6 +37,10 @@ class Login extends Component
         ]);
 
         try {
+            if ($this->role == 'user') {
+                $konseli = $this->sinkron_mhs_simak($this->username);
+            }
+
             $err = 0;
             $user = User::where('role', $this->role)->where(function ($query) {
                 $query->where('username', $this->username)->orWhere('email', $this->username);
@@ -48,14 +52,47 @@ class Login extends Component
             }
 
             if ($user) {
-                if (!password_verify($this->password, $user->password)) {
-                    $this->addError('password', 'Password yang Anda masukkan salah. Silakan coba lagi!');
-                    $err++;
-                }
-
                 if (!$user->is_active) {
                     $this->addError('username', 'Akun belum diaktifkan!');
                     $err++;
+                }
+
+                if ($user->user_simak && $this->role == 'counselor') {
+                    $token = get_token();
+                    if (!$token || $token['status'] != '200') {
+                        $this->addError('username', 'Terjadi kesalahan saat pembuatan token!');
+                        $err++;
+                    }
+
+                    if (!$err) {
+                        $response = json_decode(get_data(str_curl(env('API_URL_SIMAK') . '/4pisim4k/index.php/dosen/nidn', ['token' => $token['data']['token'], 'nidn' => $this->username])), TRUE);
+                        if ($response['status'] != '200') {
+                            $this->addError('username', 'Identitas dosen ' . $this->username . ' tidak ditemukan!');
+                            $err++;
+                        }
+
+                        if (!$err) {
+                            $get = $response['data']['dosen'];
+                            if (!password_verify($this->password, $get['password'])) {
+                                $this->addError('password', 'Password yang Anda masukkan salah. Silakan coba lagi!');
+                                $err++;
+                            }
+                        }
+                    }
+                }
+
+                if ($user->user_simak && $this->role == 'user') {
+                    if (!password_verify($this->password, $konseli['password'])) {
+                        $this->addError('password', 'Password yang Anda masukkan salah. Silakan coba lagi!');
+                        $err++;
+                    }
+                }
+
+                if (!$user->user_simak) {
+                    if (!password_verify($this->password, $user->password)) {
+                        $this->addError('password', 'Password yang Anda masukkan salah. Silakan coba lagi!');
+                        $err++;
+                    }
                 }
             }
 
@@ -80,6 +117,57 @@ class Login extends Component
         } catch (\Throwable $th) {
             dd($th->getMessage());
             exit();
+        }
+    }
+
+    public function sinkron_mhs_simak($nim)
+    {
+        $err = 0;
+
+        $token = get_token();
+        if (!$token || $token['status'] != '200') {
+            $this->addError('username', 'Terjadi kesalahan saat pembuatan token!');
+            $err++;
+        }
+
+        $get = [];
+        if (!$err) {
+            $response = json_decode(get_data(str_curl(env('API_URL_SIMAK') . '/4pisim4k/index.php/mahasiswa/nim', ['token' => $token['data']['token'], 'nim' => $nim])), TRUE);
+            if ($response['status'] != '200') {
+                $this->addError('username', 'Identitas mahasiswa ' . $nim . ' tidak dikenali!');
+                $err++;
+            }
+
+            if (!$err) {
+                $get = $response['data'];
+            }
+        }
+
+        if (!$err) {
+            $value = [
+                'name' => ucwords(strtolower(trim($get['nama_mahasiswa']))),
+                'email' => $get['email'],
+                'username' => $get['nim'],
+                'password' => $get['password'],
+                'role' => 'user',
+                'user_simak' => 1,
+                'details' => json_encode([
+                    'hp' => $get['handphone'],
+                    'jk' => $get['jenis_kelamin'],
+                    'alamat' => NULL,
+                    'institusi' => 'Universitas Khairun',
+                    'tempat_lahir' => $get['tempat_lahir'],
+                    'tanggal_lahir' => $get['tanggal_lahir']
+                ])
+            ];
+
+            // insert user jika belum ada
+            User::firstOrCreate(
+                ['username' => $get['nim']],
+                $value
+            );
+
+            return $value;
         }
     }
 }

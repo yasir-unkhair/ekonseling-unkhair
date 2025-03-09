@@ -5,30 +5,24 @@
                 <h5>{{ $title }}</h5>
                 <div class="card-header-right">
                     <div class="btn-group card-option">
-                        <button type="button" onclick="form_import_dosen_simak()" class="btn btn-sm btn-warning mr-2">
-                            <i class="feather icon-download"></i> Import Dari Simak
-                        </button>
-
-                        <button type="button" onclick="document.location.href='{{ route('admin.konselor.add') }}'"
-                            class="btn btn-sm btn-primary">
-                            <i class="feather icon-plus"></i> Tambah Data
+                        <button type="button" onclick="pengajuan_konseling()" class="btn btn-sm btn-primary">
+                            <i class="feather icon-plus"></i> Pengajuan Konseling
                         </button>
                     </div>
                 </div>
             </div>
             <div class="card-body">
+
                 <div class="table-responsive">
                     <table class="table table-hover mb-0" id="{{ $datatable['id_table'] }}">
                         <thead>
                             <tr>
-                                <th>
-                                    No
-                                </th>
-                                <th>
-                                    Nama Konselor
-                                </th>
-                                <th>Pengalaman</th>
-                                <th>Jadwal</th>
+                                <th>No</th>
+                                <th>Nama Koselor</th>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
+                                <th>Status</th>
+                                <th>Ket</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -40,7 +34,7 @@
         </div>
     </div>
 
-    <livewire:admin.import-dosen-simak />
+    <livewire:user.pengajuan-konseling />
 
     @push('style')
         <link href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" rel="stylesheet">
@@ -72,8 +66,22 @@
                 });
             });
 
-            function form_import_dosen_simak() {
-                Livewire.dispatch('show-modal-import-dosen-simak');
+            function pengajuan_konseling() {
+                Livewire.dispatch('show-modal-pengajuan');
+            }
+
+            function edit(id) {
+                Livewire.dispatch('show-modal-edit-pengajuan', {
+                    id: id
+                });
+            }
+
+            function hapus(id) {
+                if (confirm('Apakah anda yakin ingin menghapus data ini?')) {
+                    Livewire.dispatch('delete-jadwal', {
+                        id: id
+                    });
+                }
             }
         </script>
     @endpush

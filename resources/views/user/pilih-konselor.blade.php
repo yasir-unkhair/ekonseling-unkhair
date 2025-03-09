@@ -22,15 +22,33 @@
                                 <h6 class="m-b-5">
                                     {{ $row->name }}
                                     <small class="float-right text-muted">
-                                        bergabung sejak {{ tgl_indo($row->created_at, false) }}
+                                        bergabung sejak: {{ date('Y', strtotime($row->created_at)) }}
                                     </small>
                                 </h6>
                                 <p class="m-t-5 m-b-15">
                                     <span><b>Pengalaman:</b> {{ $detail['pengalaman'] ?? '-' }} tahun</span> <br>
                                     <b>Spesialisasi:</b> <br>
-                                    @foreach ($row->spesialisasi as $row)
-                                        <span class="badge badge-warning">{{ $row->name }}</span>
+                                    @foreach ($row->spesialisasi as $sp)
+                                        <span class="badge badge-warning">{{ $sp->name }}</span>
                                     @endforeach
+                                    <br>
+                                    <b>Jadwal:</b>
+                                    @if ($row->jadwal)
+                                        <table border="1" cellpadding="4" style="font-size: 12px; margin:0px;">
+                                            <tr>
+                                                <th>Hari</th>
+                                                <th>Jam</th>
+                                                <th>Metode</th>
+                                            </tr>
+                                            @foreach ($row->jadwal as $index => $jadwal)
+                                                <tr>
+                                                    <td>{{ $jadwal->hari }}</td>
+                                                    <td>{{ $jadwal->jam }}</td>
+                                                    <td>{{ ucwords($jadwal->metode) }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </table>
+                                    @endif
                                 </p>
                             </div>
                         </div>

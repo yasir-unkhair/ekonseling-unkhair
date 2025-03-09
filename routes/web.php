@@ -57,7 +57,11 @@ Route::middleware('isLogin')->group(function () {
         });
 
         Route::controller(App\Http\Controllers\User\PilihKoselorController::class)->group(function () {
-            Route::get('/pilih-konselor', 'index')->name('user.pilih_konselor');
+            Route::get('/daftar-konselor', 'index')->name('user.pilih_konselor');
+        });
+
+        Route::controller(App\Http\Controllers\User\JadwalKonselingController::class)->group(function () {
+            Route::get('/jadwal-konseling', 'index')->name('user.jadwal_konseling.index');
         });
     });
 });

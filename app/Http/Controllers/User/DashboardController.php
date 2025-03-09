@@ -9,7 +9,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('user.dashboard', ['title' => 'Dashboard']);
+        $data = [
+            'title' => 'Dashboard',
+            'user' => auth()->user()
+        ];
+        return view('user.dashboard', $data);
     }
 
     public function profile()

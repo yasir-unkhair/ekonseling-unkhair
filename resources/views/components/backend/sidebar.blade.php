@@ -53,13 +53,14 @@
         Profil Saya
     </x-backend.menu>
 
-    <x-backend.menu href="{{ '' }}" icon="calendar" active="{{ 0 }}">
-        Jadwal Konseling
-    </x-backend.menu>
-
     <x-backend.menu href="{{ route('user.pilih_konselor') }}" icon="users"
         active="{{ Route::is('user.pilih_konselor') }}">
-        Pilih Konselor
+        Daftar Konselor
+    </x-backend.menu>
+
+    <x-backend.menu href="{{ route('user.jadwal_konseling.index') }}" icon="calendar"
+        active="{{ Route::is('user.jadwal_konseling.index') }}">
+        Jadwal Konseling
     </x-backend.menu>
 
     <x-backend.menu href="{{ '' }}" icon="clock" active="{{ 0 }}">

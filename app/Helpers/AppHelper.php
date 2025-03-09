@@ -148,3 +148,18 @@ if (!function_exists('foto_profil')) {
     return asset($foto);
   }
 }
+
+if (!function_exists('baca_json')) {
+  function baca_json($data, $key = NULL)
+  {
+    if (!$data) {
+      return '';
+    }
+
+    $json = json_decode($data, true);
+    if ($key) {
+      return $json[$key] ?? '';
+    }
+    return $json;
+  }
+}

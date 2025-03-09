@@ -50,3 +50,21 @@ if (!function_exists('str_range_tanggal')) {
         return tgl_indo($selesai, false);
     }
 }
+
+if (!function_exists('format_status_pengajuan')) {
+    function format_status_pengajuan($status)
+    {
+        switch ($status) {
+            case 'pending':
+                return '<span class="badge badge-light-secondary">Pengajuan..</span>';
+            case 'approved':
+                return '<span class="badge badge-light-success">Disetujui</span>';
+            case 'rejected':
+                return '<span class="badge badge-light-danger">Ditolak!</span>';
+            case 'ongoing':
+                return '<span class="badge badge-light-info">Dalam Proses</span>';
+            case 'completed':
+                return '<span class="badge badge-light-primary">Selesai</span>';
+        }
+    }
+}

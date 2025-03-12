@@ -56,7 +56,7 @@ if (!function_exists('format_status_pengajuan')) {
     {
         switch ($status) {
             case 'pending':
-                return '<span class="badge badge-light-secondary">Pengajuan..</span>';
+                return '<span class="badge badge-light-warning">Menunggu Konfirmasi..</span>';
             case 'approved':
                 return '<span class="badge badge-light-success">Disetujui</span>';
             case 'rejected':

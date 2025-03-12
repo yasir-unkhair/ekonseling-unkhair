@@ -42,7 +42,7 @@
                             <select class="form-control" wire:model="metode">
                                 <option value="">-- Pilih Metode --</option>
                                 <option value="offline" {{ $metode == 'offline' ? 'selected' : '' }}>Offline</option>
-                                <option value="chat" {{ $metode == 'chat' ? 'selected' : '' }}>Chat</option>
+                                {{-- <option value="chat" {{ $metode == 'chat' ? 'selected' : '' }}>Chat</option> --}}
                                 <option value="video conference" {{ $metode == 'video conference' ? 'selected' : '' }}>
                                     Video Conference (Zoom, Google Meet, Microsoft Teams, WhatsApp Video, dll.)
                                 </option>

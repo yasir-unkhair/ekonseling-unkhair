@@ -4,11 +4,7 @@
             <div class="card-header">
                 <h5>{{ $title }}</h5>
                 <div class="card-header-right">
-                    <div class="btn-group card-option">
-                        <button type="button" onclick="pengajuan_konseling()" class="btn btn-sm btn-primary">
-                            <i class="feather icon-plus"></i> Pengajuan Konseling
-                        </button>
-                    </div>
+                    <div class="btn-group card-option"></div>
                 </div>
             </div>
             <div class="card-body">
@@ -18,11 +14,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Koselor</th>
-                                <th>Tanggal</th>
+                                <th>Nama Konseli</th>
                                 <th>Kategori</th>
+                                <th>Tanggal</th>
                                 <th>Status</th>
-                                <th>Ket</th>
+                                <th>Deskripsi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -34,7 +30,7 @@
         </div>
     </div>
 
-    <livewire:user.pengajuan-konseling />
+    <livewire:konselor.detail-permintaan-konseling />
 
     @push('style')
         <link href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" rel="stylesheet">
@@ -66,22 +62,10 @@
                 });
             });
 
-            function pengajuan_konseling() {
-                Livewire.dispatch('show-modal-pengajuan');
-            }
-
-            function edit(id) {
-                Livewire.dispatch('show-modal-edit-pengajuan', {
+            function detail(id) {
+                Livewire.dispatch('show-modal-detail-permintaan', {
                     id: id
                 });
-            }
-
-            function hapus(id) {
-                if (confirm('Apakah anda yakin ingin menghapus data ini?')) {
-                    Livewire.dispatch('delete-pengajuan', {
-                        id: id
-                    });
-                }
             }
         </script>
     @endpush

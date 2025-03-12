@@ -42,6 +42,20 @@
             </x-backend.submenu>
         </x-slot>
     </x-backend.menu2>
+
+    <x-backend.menu href="{{ route('counselor.permintaan_konseling.index') }}" icon="inbox"
+        active="{{ Route::is('counselor.permintaan_konseling.index') }}">
+        Permintaan Konseling
+    </x-backend.menu>
+
+    <x-backend.menu href="{{ '' }}" icon="clock" active="">
+        Riwayat Konseling
+    </x-backend.menu>
+
+    <x-backend.menu href="{{ route('counselor.notification') }}" icon="bell"
+        active="{{ Route::is('counselor.notification') }}">
+        Notifikasi
+    </x-backend.menu>
 @endif
 
 @if (Auth::user()->role == 'user')
@@ -65,5 +79,9 @@
 
     <x-backend.menu href="{{ '' }}" icon="clock" active="{{ 0 }}">
         Riwayat Konseling
+    </x-backend.menu>
+
+    <x-backend.menu href="{{ '' }}" icon="bell" active="">
+        Notifikasi
     </x-backend.menu>
 @endif

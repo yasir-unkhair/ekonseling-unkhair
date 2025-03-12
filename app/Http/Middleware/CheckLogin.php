@@ -18,13 +18,13 @@ class CheckLogin
     {
         if (!Auth()->check()) {
             alert()->error('Error', 'Silahkan login terlebih dahulu.');
-            return redirect(route('frontend.berenda'));
+            return redirect(route('frontend.beranda'));
         }
 
         if (!Auth()->user()->is_active) {
             auth()->logout();
             alert()->error('Error', 'Akun belum diaktifkan!');
-            return redirect(route('frontend.berenda'));
+            return redirect(route('frontend.beranda'));
         }
 
         return $next($request);

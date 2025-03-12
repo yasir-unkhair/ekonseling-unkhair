@@ -37,6 +37,7 @@ class Login extends Component
         ]);
 
         try {
+            // jika role user, sinkronkan data ke simak
             if ($this->role == 'user') {
                 $konseli = $this->sinkron_mhs_simak($this->username);
             }

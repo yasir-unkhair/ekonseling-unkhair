@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Models\CounselingRequests;
 use App\Models\User;
+use App\Notifications\PermintaanKonseling;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
@@ -79,6 +80,27 @@ class PengajuanKonseling extends Component
         $this->dispatch('open-modal', modal: $this->modalID);
     }
 
+    #[On('show-modal-edit-pengajuan')]
+    public function edit($id)
+    {
+        $get = CounselingRequests::where('id', $id)->first();
+        if ($get) {
+            $this->id = $get->id;
+            $this->counselor_id = $get->counselor_id;
+            $this->category = $get->category;
+            $this->description = $get->description;
+            $this->date = $get->date;
+            $this->time = $get->time;
+            $this->status = $get->status;
+
+            $this->mode = 'edit';
+
+            $this->getSpesialisasi($this->counselor_id);
+
+            $this->dispatch('open-modal', modal: $this->modalID);
+        }
+    }
+
     public function save()
     {
         $this->validate([
@@ -99,6 +121,11 @@ class PengajuanKonseling extends Component
                 'time' => $this->time,
                 'status' => $this->status
             ]);
+
+            $konseli = User::find(auth()->user()->id);
+            $konselor = User::find($this->counselor_id);
+            $konselor->notify(new PermintaanKonseling($konseli));
+
             alert()->success('Success', 'Pengajuan berhasil dikirim');
         }
 

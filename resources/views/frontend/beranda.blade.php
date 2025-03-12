@@ -6,14 +6,13 @@
         <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
             <div class="carousel-item active">
-                <img src="{{ asset('frontend') }}/img/hero-carousel/hero-carousel-1.jpg" alt="">
-                <div class="carousel-container text-left">
-                    <h2>E-Konseling Universitas Khairun<br></h2>
+                <img src="{{ asset('images/konseling-online.jpg') }}" alt="">
+                <div class="carousel-container text-center">
+                    <h2>E-Konseling Universitas Khairun</h2>
                     <p>
-                        <b>E-Konseling</b> merupakan sebuah layanan yang menjadi bagian dari Pusat Pengembangan
-                        Pendidikan Akademik dan Profesional (P3AP) sebagai upaya Universitas Khairun untuk memfasilitasi
-                        atau membantu mahasiswa dalam menghadapi permasalahan sehari-hari yang mungkin muncul dan
-                        mengganggu aktivitas sehari-hari dan berdampak pada performa akademis mahasiswa.
+                        <b>E-Konseling</b> adalah layanan bimbingan dan konseling yang memanfaatkan teknologi
+                        informasi, khususnya internet, di Universitas Khairun untuk membantu mahasiswa
+                        dengan berbagai masalah pribadi, sosial, karir, dan akademik.
                     </p>
                     <a href="#featured-services" class="btn-get-started">MASUK</a>
                 </div>
@@ -28,26 +27,27 @@
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
-            <h2>About</h2>
-            <p>About Us<br></p>
+            <h2>Help</h2>
+            <p>Tahapan e-Konseling<br></p>
         </div><!-- End Section Title -->
 
         <div class="container">
 
-            <div class="row gy-4">
-
-                <div class="col-lg-12 content" data-aos="fade-up" data-aos-delay="100">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore
-                        magna aliqua.
-                    </p>
-
-                    <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            <div class="row gy-4 flex-center">
+                <div class="col-lg-5 text-center text-md-start">
+                    <img src="{{ asset('images/bg3.png') }}" class="img-fluid" width="400">
                 </div>
 
+                <div class="col-lg-7 content" data-aos="fade-up" data-aos-delay="100">
+                    <h6 class="fw-bold fs-2 fs-lg-3 display-3 lh-sm">Tahapan e-Konseling</h6>
+                    <p class="my-4 pe-xl-8">
+                    <ol>
+                        <li>Klien memilih konselor dan jadwal yang tersedia.</li>
+                        <li>Setelah jadwal divalidasi oleh konselor, maka konseling dapat dilakukan.</li>
+                        <li>Konseling bisa dilakukan untuk individu maupun kelompok.</li>
+                    </ol>
+                    </p>
+                </div>
             </div>
 
         </div>

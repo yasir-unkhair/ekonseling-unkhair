@@ -38,7 +38,7 @@ class Login extends Component
 
         try {
             // jika role user, sinkronkan data ke simak
-            if ($this->role == 'user') {
+            if ($this->role == 'user' && !filter_var($this->username, FILTER_VALIDATE_EMAIL)) {
                 $konseli = $this->sinkron_mhs_simak($this->username);
             }
 

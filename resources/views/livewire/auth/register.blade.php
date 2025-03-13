@@ -10,6 +10,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
+                            <div class="alert alert-info" role="alert">
+                                <strong>Informasi:</strong> <br>
+                                Mahasiswa Universitas Khairun tidak perlu membuat akun baru. Cukup gunakan akun SIMAK
+                                Anda untuk masuk dan mengakses layanan eKonseling dengan mudah.
+                            </div>
+
                             <label for="exampleInputEmail1" class="form-label">
                                 Nama Lengkap <sup class="text-danger">*</sup>
                             </label>
